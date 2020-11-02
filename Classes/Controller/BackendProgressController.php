@@ -16,7 +16,7 @@ class BackendProgressController
 
         $result = $this->getAllRegistryEntries();
 
-        $data = [];
+        $data = ['response' => 200];
         $entriesToDelete = [];
         while ($row = $result->fetch()) {
             $data[$row['uid']] = unserialize($row['entry_values']);
