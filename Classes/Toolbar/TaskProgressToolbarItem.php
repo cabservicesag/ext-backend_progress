@@ -12,7 +12,7 @@ class TaskProgressToolbarItem implements ToolbarItemInterface
     public function __construct()
     {
         GeneralUtility::makeInstance(PageRenderer::class)
-            ->loadRequireJsModule('Cabag/BackendProgress/ProgressBarToolbarItem');
+            ->loadRequireJsModule('TYPO3/CMS/BackendProgress/ProgressBarToolbarItem');
     }
 
     public function checkAccess()
@@ -43,6 +43,6 @@ class TaskProgressToolbarItem implements ToolbarItemInterface
 
     public function getIndex()
     {
-        return 100;
+        return 0;
     }
 }
