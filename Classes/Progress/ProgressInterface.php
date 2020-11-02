@@ -7,10 +7,10 @@ interface ProgressInterface
     /**
      * @const string
      */
-    protected const TYPE_PROGRESS_BAR = 'progress_bar';
+    public const TYPE_PROGRESS_BAR = 'progress_bar';
 
     /**
      * @const string
      */
-    protected const TYPE_PROGRESS_CIRCLE = 'progress_circle';
+    public const TYPE_PROGRESS_CIRCLE = 'progress_circle';
 }
