@@ -19,24 +19,20 @@ define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequ
         } else {
             $container.empty();
           // TODO: move this to some js templating engine?
-            for (item in jsonData) {
-              if(typeof item['currentStep'] !== "undefined") {
-
-              // Do some rendering
-                $container.append(
-                  `<div class = "t3-backend-progress-item">
-                      <div class = "t3-backend-progress-bar-container">
-                        <div style = "width:${jsonData[item]['currentStep'] / jsonData[item]['steps']}%;" class = "t3-backend-progress-bar" > </div>
-                        <div class = "t3-backend-progress-bar-label" > ${item['label']} </div>
-                      </div>
-                    </div> `
-                );
-              } else {
-                $container.append(
-                  '<div class="t3-backend-progress-item">' +
-                    jsonData[item] +
-                  '</div>'
-                );
+            for (var item in jsonData) {
+                if(typeof jsonData[item]['currentStep'] !== "undefined") {
+                let singleItem = jsonData[item];
+                // Do some rendering
+                  $container.append(
+                    `<div class = "t3-backend-progress-item">
+                        <div class = "t3-backend-progress-bar-container">
+                          <div class="callout-warning" style = "border:1px darkgrey; height:20px;">
+                            <div class="callout-success" style="align:center; position: relative;top:1px; height:18px;width:${(singleItem['currentStep'] / singleItem['steps'] * 100)}%;" class = "t3-backend-progress-bar" > ${singleItem['currentStep']}/${singleItem['steps']}</div>
+                          </div>
+                          <div class = "t3-backend-progress-bar-label" > ${singleItem['label']} </div>
+                        </div>
+                      </div>`
+                  );
               }
             }
         }
@@ -65,7 +61,8 @@ define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequ
       });
     }
 
-    setInterval(ProgressBarToolbarItem.checkProgressStatus, 1000);
+    ProgressBarToolbarItem.checkProgressStatus();
+    //setInterval(ProgressBarToolbarItem.checkProgressStatus, 10000);
 
     return ProgressBarToolbarItem;
 });
