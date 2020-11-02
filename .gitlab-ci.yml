@@ -1,0 +1,23 @@
+stages:
+  - test
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+variables:
+  SAST_EXCLUDED_PATHS: "spec, test, tests, tmp, vendor"
+
+default:
+  image: cabag/composer:v2
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+
+static_analysis:
+  stage: test
+  script:
+    - composer install --no-suggest --no-progress --ignore-platform-reqs --prefer-dist --optimize-autoloader
+    - composer phpstan
+    - composer phpcs

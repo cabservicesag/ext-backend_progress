@@ -1,0 +1,40 @@
+{
+	"name": "cabag/ext-backend-progress",
+	"description": "Add a toolbaritem that displays the progress of a long running task.",
+	"type": "typo3-cms-extension",
+	"authors": [
+		{
+			"name": "Tizian Schmidlin",
+			"role": "Developer"
+		}
+	],
+	"license": [
+		"GPL-2.0-or-later"
+	],
+	"require": {
+		"php": "7.2",
+		"typo3/cms-core": "^10.4.6",
+		"typo3/cms-backend": "^10.4.6",
+		"typo3/cms-extbase": "^10.4.6"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "*",
+		"squizlabs/php_codesniffer": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Cabag\\BackendProgress\\": "Classes",
+			"Cabag\\BackendProgress\\Examples\\": "examples"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "backend_progress"
+		}
+	},
+	"scripts": {
+		"phpstan": "phpstan analyse",
+		"phpcs": "phpcs",
+		"phpcsfix": "phpcbf"
+	}
+}
