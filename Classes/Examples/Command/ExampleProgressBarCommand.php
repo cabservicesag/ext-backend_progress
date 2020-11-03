@@ -47,7 +47,7 @@ class ExampleProgressBarCommand extends Command
         $amount = count($array);
         mt_srand(time());
         foreach ($array as $key => $value) {
-            usleep(mt_rand(10000,200000));
+            usleep(mt_rand(10000, 200000));
             $this->updateStepLabel(sprintf('Update part %s from %d', $key, $amount));
             // Do some processing
         }
