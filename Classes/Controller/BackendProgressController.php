@@ -19,7 +19,7 @@ class BackendProgressController
         $data = ['response' => 200];
         $entriesToDelete = [];
         while ($row = $result->fetch()) {
-            $data[$row['uid']] = unserialize($row['entry_values']);
+            $data[$row['uid']] = unserialize($row['entry_value']);
             if ($data[$row['uid']]['ttl'] < time()) {
                 $entriesToDelete[] = $row['uid'];
             }
@@ -40,10 +40,10 @@ class BackendProgressController
     {
         mt_srand(time());
 
-        if (mt_rand(1, 100) === 100) {
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class);
+        if (count($entriesToDelete) > 0 && mt_rand(1, 100) === 100) {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable('sys_registry');
             $queryBuilder
-                ->getQueryBuilderForTable('sys_registry')
                 ->delete('sys_registry')
                 ->where($queryBuilder->expr()->in('uid', $entriesToDelete))
                 ->execute();
