@@ -26,11 +26,6 @@
 			"Cabag\\BackendProgress\\": "Classes"
 		}
 	},
-	"autoload-dev": {
-		"psr-4": {
-			"Cabag\\BackendProgress\\Examples\\": "examples"
-		}
-	},
 	"extra": {
 		"typo3/cms": {
 			"extension-key": "backend_progress"
