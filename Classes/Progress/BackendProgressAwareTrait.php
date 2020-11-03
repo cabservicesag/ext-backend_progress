@@ -151,4 +151,12 @@ trait BackendProgressAwareTrait
 
         $this->setData($data);
     }
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+        $this->cleanupTask(30);
+    }
 }
