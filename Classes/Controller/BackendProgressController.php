@@ -6,11 +6,16 @@ use Doctrine\DBAL\Driver\Statement;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\JsonResponse;
+use TYPO3\CMS\Core\Http\Request;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class BackendProgressController
 {
+    /**
+     * @param ServerRequestInterface $request
+     * @return Response
+     */
     public function getProgress(ServerRequestInterface $request): Response
     {
 

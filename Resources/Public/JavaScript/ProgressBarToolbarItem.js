@@ -1,4 +1,4 @@
-define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequest) {
+define(['jquery'], function ($) {
     var ProgressBarToolbarItem = {
         fetching: false
     };
@@ -13,7 +13,7 @@ define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequ
             jsonData = JSON.parse(jsonData);
         }
 
-        var $container = jquery('#t3-backend-progress-container');
+        var $container = $('#t3-backend-progress-container');
         if (typeof renderFunction !== "undefined") {
             renderFunction($container, jsonData);
         } else {
@@ -39,27 +39,24 @@ define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequ
     }
 
     ProgressBarToolbarItem.checkProgressStatus = function () {
-        console.log('Check Progress Status callback')
+      console.log('Check Progress Status callback')
       if (ProgressBarToolbarItem.fetching) {
         return;
       }
       ProgressBarToolbarItem.fetching = true;
       // Call the backend ajax to initialize the view
-      let request = new AjaxRequest(TYPO3.settings.ajaxUrls.backend_progress);
 
-      try {
-        let promise = request.post({});
-
-        promise.then(async function (response) {
-          // we can just try, if it fails, we will refetch and retry on next run
-            var responseText = await response.resolve();
-            renderProgress(responseText);
-            console.log(responseText);
+      $.ajax({
+          url: TYPO3.settings.ajaxUrls.backend_progress,
+          type: 'post',
+          cache: false,
+          success: function(data) {
+            renderProgress(data);
+            console.log(data);
             ProgressBarToolbarItem.fetching = false;
-        });
-      } catch(e) {
-        ProgressBarToolbarItem.fetching = false;
-      }
+          }
+        }
+      );
     }
 
     //ProgressBarToolbarItem.checkProgressStatus();
