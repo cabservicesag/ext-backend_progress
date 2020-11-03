@@ -29,9 +29,11 @@ class ExampleProgressBarCommand extends Command
     {
         // Start the task
         $this->startTask();
+        sleep(10);
 
         // Go to the next step
         $this->nextStep();
+        sleep(10);
 
         // Update the step label
         $this->updateStepLabel('Executing part one of this step');
@@ -39,21 +41,28 @@ class ExampleProgressBarCommand extends Command
         $array = [];
         // Do some more for find $array
         // ...
+        $array = range(0, 100);
 
         // Update in a loop
         $amount = count($array);
+        mt_srand(time());
         foreach ($array as $key => $value) {
+            sleep(mt_rand(0,2));
             $this->updateStepLabel(sprintf('Update part %s from %d', $key, $amount));
             // Do some processing
         }
+        sleep(10);
         // Go to the next step and update label
         $this->nextStep('Label for whole task (can be updated)');
+        sleep(3);
 
         $this->nextStep('This is the last step');
+        sleep(5);
 
         // If you execute nextStep too often, the total amount of steps will raise and the completion will stay at
         // steps-1 until endTask is called
-        $this->nextStep('An additional step');
+        $this->nextStep('An additional step(what happened here?)');
+        sleep(11);
 
         // End the task
         $this->endTask();

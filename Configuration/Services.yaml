@@ -6,3 +6,8 @@ services:
 
   Cabag\BackendProgress\:
     resource: '../Classes/*'
+
+  Cabag\BackendProgress\Examples\Command\ExampleProgressBarCommand:
+    tags:
+      - name: 'console.command'
+        command: 'backend-progress:test'
