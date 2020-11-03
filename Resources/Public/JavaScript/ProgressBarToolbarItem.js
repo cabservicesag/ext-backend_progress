@@ -27,7 +27,7 @@ define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequ
                     `<div class = "t3-backend-progress-item">
                         <div class = "t3-backend-progress-bar-container">
                           <div class="callout-warning" style = "border:1px darkgrey; height:20px;">
-                            <div class="callout-success" style="align:center; position: relative;top:1px; height:18px;width:${(singleItem['currentStep'] / singleItem['steps'] * 100)}%;" class = "t3-backend-progress-bar" > ${singleItem['currentStep']}/${singleItem['steps']}</div>
+                            <div class="callout-success" style="text-align:center; position: relative;top:1px; height:18px;width:${(singleItem['currentStep'] / singleItem['steps'] * 100)}%;" class = "t3-backend-progress-bar" > ${singleItem['currentStep']}/${singleItem['steps']}</div>
                           </div>
                           <div class = "t3-backend-progress-bar-label" > ${singleItem['label']} </div>
                         </div>
@@ -47,22 +47,23 @@ define(['jquery', 'TYPO3/CMS/Core/Ajax/AjaxRequest'], function (jquery, AjaxRequ
       // Call the backend ajax to initialize the view
       let request = new AjaxRequest(TYPO3.settings.ajaxUrls.backend_progress);
 
-      let promise = request.post({});
+      try {
+        let promise = request.post({});
 
-      promise.then(async function (response) {
-        // we can just try, if it fails, we will refetch and retry on next run
-        try {
-          var responseText = await response.resolve();
-          renderProgress(responseText);
-        } catch(e) {}
-
+        promise.then(async function (response) {
+          // we can just try, if it fails, we will refetch and retry on next run
+            var responseText = await response.resolve();
+            renderProgress(responseText);
+            console.log(responseText);
+            ProgressBarToolbarItem.fetching = false;
+        });
+      } catch(e) {
         ProgressBarToolbarItem.fetching = false;
-        console.log(responseText);
-      });
+      }
     }
 
-    ProgressBarToolbarItem.checkProgressStatus();
-    //setInterval(ProgressBarToolbarItem.checkProgressStatus, 10000);
+    //ProgressBarToolbarItem.checkProgressStatus();
+    setInterval(ProgressBarToolbarItem.checkProgressStatus, 1000);
 
     return ProgressBarToolbarItem;
 });
