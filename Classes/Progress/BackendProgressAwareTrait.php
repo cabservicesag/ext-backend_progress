@@ -125,7 +125,7 @@ trait BackendProgressAwareTrait
         return $this->getRegistry()->get(
             'backend_progress',
             $this->identifier
-        );
+        ) ?? [];
     }
 
     /**
