@@ -68,7 +68,7 @@ trait BackendProgressAwareTrait
      * @param int $seconds Set the amount of time the finished task should still appear in the UI.
      * @return void
      */
-    protected function cleanupTask(int $seconds = 60): void
+    public function cleanupTask(int $seconds = 60): void
     {
         $this->updateTaskProgress(['ttl' => time() + abs($seconds)]);
     }
@@ -77,7 +77,7 @@ trait BackendProgressAwareTrait
      * Start the current task
      * @param string $label
      */
-    protected function startTask($label = '')
+    public function startTask($label = '')
     {
         $this->updateTaskProgress(['currentStep' => 0, 'label' => $label]);
     }
@@ -86,7 +86,7 @@ trait BackendProgressAwareTrait
      * Go to next step
      * @param string $label
      */
-    protected function nextStep($label = '')
+    public function nextStep($label = '')
     {
         $data = $this->getData();
         // In case someone calls next step without starting the task first
@@ -108,7 +108,7 @@ trait BackendProgressAwareTrait
      *
      * @param string $label
      */
-    private function updateStepLabel(string $label)
+    public function updateStepLabel(string $label = '')
     {
         $data = $this->getData();
 
@@ -143,7 +143,7 @@ trait BackendProgressAwareTrait
     /**
      * Ent the current task
      */
-    protected function endTask()
+    public function endTask()
     {
         $data = $this->getData();
 
@@ -158,5 +158,10 @@ trait BackendProgressAwareTrait
     public function __destruct()
     {
         $this->cleanupTask(30);
+    }
+
+    public function initialize(string $identifier, int $steps)
+    {
+        // TODO: Implement initialize() method.
     }
 }
