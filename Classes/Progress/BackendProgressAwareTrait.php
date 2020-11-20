@@ -122,10 +122,20 @@ trait BackendProgressAwareTrait
      */
     protected function getData(): array
     {
-        return $this->getRegistry()->get(
+        $data = $this->getRegistry()->get(
             'backend_progress',
             $this->identifier
         ) ?? [];
+        // If for some reason, get data is called before it was initialized
+        if(empty($data)) {
+            $this->registerTaskInProgress(strtolower(__CLASS__) . '_anonymous_task', 1);
+            $data = $this->getRegistry()->get(
+                'backend_progress',
+                $this->identifier
+            );
+        }
+
+        return $data;
     }
 
     /**
